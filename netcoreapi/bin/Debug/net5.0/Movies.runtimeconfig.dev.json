@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Jeeya\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Jeeya\\.nuget\\packages"
+    ]
+  }
+}
