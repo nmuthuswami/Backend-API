@@ -8,8 +8,7 @@ using WebAPI.Helper;
 
 namespace WebAPI.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
+    [ApiController]    
     public class MoviesController : ControllerBase
     {
         private IMoviesService _moviesService;
@@ -17,14 +16,32 @@ namespace WebAPI.Controllers
         public MoviesController(IMoviesService moviesService)
         {
             _moviesService = moviesService;
-        }
+        }        
 
         [Authorize]
-        [HttpGet]
-        public IActionResult GetAllMovies()
+        [Route("[controller]/{id:int=0}/{param1?}/{param2?}")]
+        public IActionResult GetMovies(int id, string param1, string param2)
         {
-            var movies = _moviesService.GetAllMovies();
-            return Ok(movies);
+            if (id == 1)
+            {
+                var movies = _moviesService.GetMovies(location: param1, language: string.Empty);
+                return Ok(movies);
+            }
+            else if (id == 2)
+            {
+                var movies = _moviesService.GetMovies(location:string.Empty, language: param1);
+                return Ok(movies);
+            }
+            else if (id == 3)
+            {
+                var movies = _moviesService.GetMovies(location: param1, language: param2);
+                return Ok(movies);
+            }
+            else
+            {
+                var movies = _moviesService.GetMovies();
+                return Ok(movies);
+            }
         }
     }
 }

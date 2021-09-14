@@ -8,6 +8,6 @@ namespace WebAPI.Services
 {
     public interface IMoviesService
     {        
-        IEnumerable<Entity.Movies> GetAllMovies();
+        IEnumerable<Entity.Movies> GetMovies(string location = "", string language = "");        
     }
 }
