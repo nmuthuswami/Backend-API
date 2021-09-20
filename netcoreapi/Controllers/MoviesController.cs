@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebAPI.Services;
 using WebAPI.Helper;
+using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
@@ -22,25 +23,30 @@ namespace WebAPI.Controllers
         [Route("[controller]/{id:int=0}/{param1?}/{param2?}")]
         public IActionResult GetMovies(int id, string param1, string param2)
         {
+            MoviesRequest request;
+            MoviesResponse response;
             if (id == 1)
             {
-                var movies = _moviesService.GetMovies(location: param1, language: string.Empty);
-                return Ok(movies);
+                request = new MoviesRequest() { Location = param1, Language = string.Empty };
+                response = _moviesService.GetMovies(request);
+                return Ok(response.Movies);
             }
             else if (id == 2)
             {
-                var movies = _moviesService.GetMovies(location:string.Empty, language: param1);
-                return Ok(movies);
+                request = new MoviesRequest() { Location = string.Empty, Language = param1 };
+                response = _moviesService.GetMovies(request);
+                return Ok(response.Movies);
             }
             else if (id == 3)
             {
-                var movies = _moviesService.GetMovies(location: param1, language: param2);
-                return Ok(movies);
+                request = new MoviesRequest() { Location = param1, Language = param2 };
+                response = _moviesService.GetMovies(request);
+                return Ok(response.Movies);
             }
             else
             {
-                var movies = _moviesService.GetMovies();
-                return Ok(movies);
+                response = _moviesService.GetMovies();
+                return Ok(response.Movies);
             }
         }
     }

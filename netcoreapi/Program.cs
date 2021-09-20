@@ -21,7 +21,7 @@ namespace Movies
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>()
-                    .UseUrls("http://localhost:3000");
+                    .UseUrls("http://localhost:3001");
                 });
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAPI.Models;
 
 namespace WebAPI.Services
 {
@@ -31,14 +32,19 @@ namespace WebAPI.Services
                 SoundEffects=new List<string>{ "Dolby Atmos","DTS"},Stills=new List<string>{"still1.jpg", "still2.jpg" },Title="Title 10" }
         };
 
-        public IEnumerable<Entities.Movies> GetMovies(string location="", string language="")
+        public MoviesResponse GetMovies(MoviesRequest request =null)
         {
-            IEnumerable<Entities.Movies> responseFilter = _movies;
-            if (!string.IsNullOrEmpty(location))//filters by location
-                responseFilter = responseFilter.Where(w => w.Location.Equals(location));
-            if (!string.IsNullOrEmpty(language))//filters by language
-                responseFilter = responseFilter.Where(w => w.Language.Equals(language));
+            MoviesResponse responseFilter = new MoviesResponse();
+            responseFilter.Movies = _movies;
 
+            if (request == null)
+                return responseFilter;
+
+            if (!string.IsNullOrEmpty(request.Location) && !request.Location.Equals("default"))//filters by location
+                responseFilter.Movies = responseFilter.Movies.Where(w => w.Location.Equals(request.Location));
+            if (!string.IsNullOrEmpty(request.Language) && !request.Language.Equals("default"))//filters by language
+                responseFilter.Movies = responseFilter.Movies.Where(w => w.Language.Equals(request.Language));
+                        
             return responseFilter;
         }            
     }

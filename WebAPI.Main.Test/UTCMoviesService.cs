@@ -15,7 +15,8 @@ namespace WebAPI.Main.Test
     public class UTCMoviesService
     {
         private IMoviesService moviesService;
-        private IEnumerable<Entities.Movies> expectedMoviesList;
+        private MoviesRequest moviesRequest;
+        private MoviesResponse expectedMoviesResponse;
         private string location = string.Empty;
         private string language = string.Empty;
 
@@ -25,9 +26,9 @@ namespace WebAPI.Main.Test
             moviesService = new MoviesService();
             Assert.IsNotNull(moviesService, "TestRetrieveAllMovies - MoviesService is null");
 
-            expectedMoviesList = moviesService.GetMovies();
-            Assert.IsNotNull(expectedMoviesList, "TestRetrieveAllMovies - ExpectedMoviesList is null");
-            Assert.AreEqual(10, expectedMoviesList.Count(), "Movies count doesn't match");
+            expectedMoviesResponse = moviesService.GetMovies();
+            Assert.IsNotNull(expectedMoviesResponse.Movies, "TestRetrieveAllMovies - ExpectedMoviesList is null");
+            Assert.AreEqual(10, expectedMoviesResponse.Movies.Count(), "Movies count doesn't match");
         }
 
         [TestMethod]
@@ -37,9 +38,10 @@ namespace WebAPI.Main.Test
             moviesService = new MoviesService();
             Assert.IsNotNull(moviesService, "TestRetrieveMoviesByEurope - MoviesService is null");
 
-            expectedMoviesList = moviesService.GetMovies(location: location);
-            Assert.IsNotNull(expectedMoviesList, "TestRetrieveMoviesByEurope - ExpectedMoviesList is null");
-            Assert.AreEqual(4, expectedMoviesList.Count(), $"Movies count doesn't match for the location-{location}");
+            moviesRequest = new MoviesRequest() { Location = location };
+            expectedMoviesResponse = moviesService.GetMovies(moviesRequest);
+            Assert.IsNotNull(expectedMoviesResponse.Movies, "TestRetrieveMoviesByEurope - ExpectedMoviesList is null");
+            Assert.AreEqual(4, expectedMoviesResponse.Movies.Count(), $"Movies count doesn't match for the location-{location}");
         }
 
         [TestMethod]
@@ -49,9 +51,10 @@ namespace WebAPI.Main.Test
             moviesService = new MoviesService();
             Assert.IsNotNull(moviesService, "TestRetrieveMoviesByAsia - MoviesService is null");
 
-            expectedMoviesList = moviesService.GetMovies(location: location);
-            Assert.IsNotNull(expectedMoviesList, "TestRetrieveMoviesByAsia - ExpectedMoviesList is null");
-            Assert.AreEqual(4, expectedMoviesList.Count(), $"Movies count doesn't match for the location-{location}");
+            moviesRequest = new MoviesRequest() { Location = location };
+            expectedMoviesResponse = moviesService.GetMovies(moviesRequest);
+            Assert.IsNotNull(expectedMoviesResponse.Movies, "TestRetrieveMoviesByAsia - ExpectedMoviesList is null");
+            Assert.AreEqual(4, expectedMoviesResponse.Movies.Count(), $"Movies count doesn't match for the location-{location}");
         }
 
         [TestMethod]
@@ -61,9 +64,10 @@ namespace WebAPI.Main.Test
             moviesService = new MoviesService();
             Assert.IsNotNull(moviesService, "TestRetrieveMoviesByNorthAmerica - MoviesService is null");
 
-            expectedMoviesList = moviesService.GetMovies(location: location);
-            Assert.IsNotNull(expectedMoviesList, "TestRetrieveMoviesByNorthAmerica - ExpectedMoviesList is null");
-            Assert.AreEqual(2, expectedMoviesList.Count(), $"Movies count doesn't match for the location-{location}");
+            moviesRequest = new MoviesRequest() { Location = location };
+            expectedMoviesResponse = moviesService.GetMovies(moviesRequest);
+            Assert.IsNotNull(expectedMoviesResponse.Movies, "TestRetrieveMoviesByNorthAmerica - ExpectedMoviesList is null");
+            Assert.AreEqual(2, expectedMoviesResponse.Movies.Count(), $"Movies count doesn't match for the location-{location}");
         }
 
         [TestMethod]
@@ -73,9 +77,10 @@ namespace WebAPI.Main.Test
             moviesService = new MoviesService();
             Assert.IsNotNull(moviesService, "TestRetrieveMoviesByEnglish - MoviesService is null");
 
-            expectedMoviesList = moviesService.GetMovies(language: language);
-            Assert.IsNotNull(expectedMoviesList, "TestRetrieveMoviesByEnglish - ExpectedMoviesList is null");
-            Assert.AreEqual(4, expectedMoviesList.Count(), $"Movies count doesn't match for the language-{language}");
+            moviesRequest = new MoviesRequest() { Language = language };
+            expectedMoviesResponse = moviesService.GetMovies(moviesRequest);
+            Assert.IsNotNull(expectedMoviesResponse.Movies, "TestRetrieveMoviesByEnglish - ExpectedMoviesList is null");
+            Assert.AreEqual(4, expectedMoviesResponse.Movies.Count(), $"Movies count doesn't match for the language-{language}");
         }
 
         [TestMethod]
@@ -85,9 +90,10 @@ namespace WebAPI.Main.Test
             moviesService = new MoviesService();
             Assert.IsNotNull(moviesService, "TestRetrieveMoviesBySpanish - MoviesService is null");
 
-            expectedMoviesList = moviesService.GetMovies(language: language);
-            Assert.IsNotNull(expectedMoviesList, "TestRetrieveMoviesBySpanish - ExpectedMoviesList is null");
-            Assert.AreEqual(2, expectedMoviesList.Count(), $"Movies count doesn't match for the language-{language}");
+            moviesRequest = new MoviesRequest() { Language = language };
+            expectedMoviesResponse = moviesService.GetMovies(moviesRequest);
+            Assert.IsNotNull(expectedMoviesResponse.Movies, "TestRetrieveMoviesBySpanish - ExpectedMoviesList is null");
+            Assert.AreEqual(2, expectedMoviesResponse.Movies.Count(), $"Movies count doesn't match for the language-{language}");
         }
 
         [TestMethod]
@@ -97,9 +103,10 @@ namespace WebAPI.Main.Test
             moviesService = new MoviesService();
             Assert.IsNotNull(moviesService, "TestRetrieveMoviesByTamil - MoviesService is null");
 
-            expectedMoviesList = moviesService.GetMovies(language: language);
-            Assert.IsNotNull(expectedMoviesList, "TestRetrieveMoviesByTamil - ExpectedMoviesList is null");
-            Assert.AreEqual(1, expectedMoviesList.Count(), $"Movies count doesn't match for the language-{language}");
+            moviesRequest = new MoviesRequest() { Language = language };
+            expectedMoviesResponse = moviesService.GetMovies(moviesRequest);
+            Assert.IsNotNull(expectedMoviesResponse.Movies, "TestRetrieveMoviesByTamil - ExpectedMoviesList is null");
+            Assert.AreEqual(1, expectedMoviesResponse.Movies.Count(), $"Movies count doesn't match for the language-{language}");
         }
 
         [TestMethod]
@@ -109,9 +116,10 @@ namespace WebAPI.Main.Test
             moviesService = new MoviesService();
             Assert.IsNotNull(moviesService, "TestRetrieveMoviesByHindi - MoviesService is null");
 
-            expectedMoviesList = moviesService.GetMovies(language: language);
-            Assert.IsNotNull(expectedMoviesList, "TestRetrieveMoviesByHindi - ExpectedMoviesList is null");
-            Assert.AreEqual(1, expectedMoviesList.Count(), $"Movies count doesn't match for the language-{language}");
+            moviesRequest = new MoviesRequest() { Language = language };
+            expectedMoviesResponse = moviesService.GetMovies(moviesRequest);
+            Assert.IsNotNull(expectedMoviesResponse.Movies, "TestRetrieveMoviesByHindi - ExpectedMoviesList is null");
+            Assert.AreEqual(1, expectedMoviesResponse.Movies.Count(), $"Movies count doesn't match for the language-{language}");
         }
 
         [TestMethod]
@@ -121,9 +129,10 @@ namespace WebAPI.Main.Test
             moviesService = new MoviesService();
             Assert.IsNotNull(moviesService, "TestRetrieveMoviesByJapanese - MoviesService is null");
 
-            expectedMoviesList = moviesService.GetMovies(language: language);
-            Assert.IsNotNull(expectedMoviesList, "TestRetrieveMoviesByJapanese - ExpectedMoviesList is null");
-            Assert.AreEqual(1, expectedMoviesList.Count(), $"Movies count doesn't match for the language-{language}");
+            moviesRequest = new MoviesRequest() { Language = language };
+            expectedMoviesResponse = moviesService.GetMovies(moviesRequest);
+            Assert.IsNotNull(expectedMoviesResponse.Movies, "TestRetrieveMoviesByJapanese - ExpectedMoviesList is null");
+            Assert.AreEqual(1, expectedMoviesResponse.Movies.Count(), $"Movies count doesn't match for the language-{language}");
         }
 
         [TestMethod]
@@ -133,9 +142,10 @@ namespace WebAPI.Main.Test
             moviesService = new MoviesService();
             Assert.IsNotNull(moviesService, "TestRetrieveMoviesByChinese - MoviesService is null");
 
-            expectedMoviesList = moviesService.GetMovies(language: language);
-            Assert.IsNotNull(expectedMoviesList, "TestRetrieveMoviesByChinese - ExpectedMoviesList is null");
-            Assert.AreEqual(1, expectedMoviesList.Count(), $"Movies count doesn't match for the language-{language}");
+            moviesRequest = new MoviesRequest() { Language = language };
+            expectedMoviesResponse = moviesService.GetMovies(moviesRequest);
+            Assert.IsNotNull(expectedMoviesResponse.Movies, "TestRetrieveMoviesByChinese - ExpectedMoviesList is null");
+            Assert.AreEqual(1, expectedMoviesResponse.Movies.Count(), $"Movies count doesn't match for the language-{language}");
         }
 
         [TestMethod]
@@ -146,9 +156,10 @@ namespace WebAPI.Main.Test
             moviesService = new MoviesService();
             Assert.IsNotNull(moviesService, "TestRetrieveMoviesByEuropeEnglish - MoviesService is null");
 
-            expectedMoviesList = moviesService.GetMovies(location: location, language: language);
-            Assert.IsNotNull(expectedMoviesList, "TestRetrieveMoviesByEuropeEnglish - ExpectedMoviesList is null");
-            Assert.AreEqual(3, expectedMoviesList.Count(), $"Movies count doesn't match for location-{location} and language-{language}");
+            moviesRequest = new MoviesRequest() { Location = location, Language = language };
+            expectedMoviesResponse = moviesService.GetMovies(moviesRequest);
+            Assert.IsNotNull(expectedMoviesResponse.Movies, "TestRetrieveMoviesByEuropeEnglish - ExpectedMoviesList is null");
+            Assert.AreEqual(3, expectedMoviesResponse.Movies.Count(), $"Movies count doesn't match for location-{location} and language-{language}");
         }
 
         [TestMethod]
@@ -159,9 +170,10 @@ namespace WebAPI.Main.Test
             moviesService = new MoviesService();
             Assert.IsNotNull(moviesService, "TestRetrieveMoviesByNorthAmericaEnglish - MoviesService is null");
 
-            expectedMoviesList = moviesService.GetMovies(location: location, language: language);
-            Assert.IsNotNull(expectedMoviesList, "TestRetrieveMoviesByNorthAmericaEnglish - ExpectedMoviesList is null");
-            Assert.AreEqual(1, expectedMoviesList.Count(), $"Movies count doesn't match for location-{location} and language-{language}");
+            moviesRequest = new MoviesRequest() { Location = location, Language = language };
+            expectedMoviesResponse = moviesService.GetMovies(moviesRequest);
+            Assert.IsNotNull(expectedMoviesResponse.Movies, "TestRetrieveMoviesByNorthAmericaEnglish - ExpectedMoviesList is null");
+            Assert.AreEqual(1, expectedMoviesResponse.Movies.Count(), $"Movies count doesn't match for location-{location} and language-{language}");
         }
 
         [TestMethod]
@@ -172,9 +184,10 @@ namespace WebAPI.Main.Test
             moviesService = new MoviesService();
             Assert.IsNotNull(moviesService, "TestRetrieveMoviesByIndiaTamil - MoviesService is null");
 
-            expectedMoviesList = moviesService.GetMovies(location: location, language: language);
-            Assert.IsNotNull(expectedMoviesList, "TestRetrieveMoviesByIndiaTamil - ExpectedMoviesList is null");
-            Assert.AreEqual(1, expectedMoviesList.Count(), $"Movies count doesn't match for location-{location} and language-{language}");
+            moviesRequest = new MoviesRequest() { Location = location, Language = language };
+            expectedMoviesResponse = moviesService.GetMovies(moviesRequest);
+            Assert.IsNotNull(expectedMoviesResponse.Movies, "TestRetrieveMoviesByIndiaTamil - ExpectedMoviesList is null");
+            Assert.AreEqual(1, expectedMoviesResponse.Movies.Count(), $"Movies count doesn't match for location-{location} and language-{language}");
         }
 
         [TestMethod]
@@ -185,9 +198,10 @@ namespace WebAPI.Main.Test
             moviesService = new MoviesService();
             Assert.IsNotNull(moviesService, "TestRetrieveMoviesByEuropeTamil - MoviesService is null");
 
-            expectedMoviesList = moviesService.GetMovies(location: location, language: language);
-            Assert.IsNotNull(expectedMoviesList, "TestRetrieveMoviesByEuropeTamil - ExpectedMoviesList is null");
-            Assert.AreEqual(0, expectedMoviesList.Count(), $"Movies count doesn't match for location-{location} and language-{language}");
+            moviesRequest = new MoviesRequest() { Location = location, Language = language };
+            expectedMoviesResponse = moviesService.GetMovies(moviesRequest);
+            Assert.IsNotNull(expectedMoviesResponse.Movies, "TestRetrieveMoviesByEuropeTamil - ExpectedMoviesList is null");
+            Assert.AreEqual(0, expectedMoviesResponse.Movies.Count(), $"Movies count doesn't match for location-{location} and language-{language}");
         }
     }
 }

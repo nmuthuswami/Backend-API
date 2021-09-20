@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Entity = WebAPI.Entities;
+using WebAPI.Models;
 
 namespace WebAPI.Services
 {
     public interface IMoviesService
-    {        
-        IEnumerable<Entity.Movies> GetMovies(string location = "", string language = "");        
+    {
+        MoviesResponse GetMovies(MoviesRequest request = null);        
     }
 }
